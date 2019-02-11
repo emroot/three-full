@@ -340,8 +340,11 @@ var OBJLoader2 = (function () {
 		var buildCode = function ( funcBuildObject, funcBuildSingleton ) {
 			var workerCode = '';
 			workerCode += '\n\n';
-			workerCode += 'THREE = { ' + LoaderSupport.constructor.name + ': {} };\n\n';
-			workerCode += funcBuildObject( '' + LoaderSupport.constructor.name + '.' + LoaderSupport.Validator.constructor.name, Validator );
+			workerCode += 'var LoaderSupport = {}\n';
+			// workerCode += 'THREE = { ' + LoaderSupport.constructor.name + ': {} };\n\n';
+			// workerCode += funcBuildObject( '' + LoaderSupport.constructor.name + '.' + LoaderSupport.Validator.constructor.name, Validator );
+			workerCode += 'THREE = { LoaderSupport: {} };\n\n';
+			workerCode += funcBuildObject( 'LoaderSupport.Validator', Validator );
 			workerCode += funcBuildSingleton( 'Parser', Parser );
 
 			return workerCode;
